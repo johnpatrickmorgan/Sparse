@@ -36,9 +36,9 @@ class ParserErrorSpec: QuickSpec {
                 let stream = Stream(input)
                 shouldThrow({ try parser._run(stream) })
                 let nameHierarchies = stream.error!.contexts.map { $0().parserNames }
-                expect(nameHierarchies[0]).to(equal(["greeting", "hello", "e"]))
-                expect(nameHierarchies[1]).to(equal(["greeting", "hi", "i"]))
-                let errorMessage = "UNEXPECTED INPUT:\nLine 1, Column 2\nhowdy partner\n~^\nEXPECTED:\ne in hello\ni in hi\n"
+                expect(nameHierarchies[0]).to(equal(["greeting", "hello", "'e'"]))
+                expect(nameHierarchies[1]).to(equal(["greeting", "hi", "'i'"]))
+                let errorMessage = "UNEXPECTED INPUT:\nLine 1, Column 2\nhowdy partner\n~^\nEXPECTED:\n'e' in hello\n'i' in hi\n"
                 expect(stream.error!.description).to(equal(errorMessage))
             }
         }

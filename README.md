@@ -33,12 +33,14 @@ let csv = many(line, separator: newline()).thenSkip(ending)
 Naming the component parsers allows for more descriptive error messages, e.g.:
 
     UNEXPECTED INPUT:
-    Line 1, Column 10
-    cell1,"ce"ll2",r1c3,r1c4,r1c5,r1c6,r1c7,"r1c8"
+    Line 5, Column 11
+    r5c1, "r5"c2" ,r5c3,r5c4 ,r5c5,r5c6,r5c7,r5c8
     ~~~~~~~~~~^
-    EXPECTED: " in escaped quote
-    OR: whitespace or , in cell separator
-    OR: newline
+    EXPECTED:
+    '"' in escaped quote
+    ',' or whitespace in cell separator
+    line separator
+    EOF or newline in file terminator
     
 ## Installation
 

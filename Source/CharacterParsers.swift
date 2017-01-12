@@ -45,7 +45,7 @@ public func character(in set: CharacterSet) -> Parser<Character> {
 
 public func character(_ char: Character) -> Parser<Character> {
     
-    return character(condition: { $0 == char }).named(String(char))
+    return character(condition: { $0 == char }).named("'\(char)'")
 }
 
 public func characterNot(in set: CharacterSet) -> Parser<Character> {
