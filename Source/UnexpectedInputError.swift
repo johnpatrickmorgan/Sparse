@@ -37,7 +37,7 @@ public struct UnexpectedInputError: PositionedInput, Error, CustomStringConverti
     
     init?(_ contexts: [() -> ParsingContext], at index: String.Index, input: String.CharacterView) {
         
-        guard let first = contexts.first else { return nil }
+        guard !contexts.isEmpty else { return nil }
         
         self.contexts = contexts
         self.input = input
@@ -70,7 +70,7 @@ public struct UnexpectedInputError: PositionedInput, Error, CustomStringConverti
                 orphanContexts.insert(name)
                 continue
             }
-            if let existing = contextsByParent[parent] {
+            if contextsByParent[parent] != nil {
                 contextsByParent[parent]?.insert(name)
             } else {
                 contextsByParent[parent] = [name]

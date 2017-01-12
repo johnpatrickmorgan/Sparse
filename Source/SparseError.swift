@@ -19,7 +19,6 @@ extension PositionedInput {
     public var positionDescription: String {
         
         let parsed = input[input.startIndex..<index]
-        let remainder = input[index..<input.endIndex]
         
         let inputLines = String(input).components(separatedBy: .newlines)
         let parsedLines = String(parsed).components(separatedBy: .newlines)
