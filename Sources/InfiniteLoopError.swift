@@ -24,6 +24,6 @@ public struct InfiniteLoopError: PositionedInput, Error, CustomStringConvertible
     }
     
     public var description: String {
-        return "INFINITE LOOP WHILE PARSING: \(context().parserNames.last)\n\(self.positionDescription)"
+        return "INFINITE LOOP WHILE PARSING: \(context().parserNames.last ?? "")\n\(self.positionDescription)"
     }
 }
