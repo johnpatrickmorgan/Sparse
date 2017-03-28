@@ -18,7 +18,6 @@
 		82DE14801E01B196005EB8B4 /* CSVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DE147F1E01B196005EB8B4 /* CSVTests.swift */; };
 		82DE14821E01B8FF005EB8B4 /* CSVTest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 82DE14811E01B8FF005EB8B4 /* CSVTest.csv */; };
 		82DE14841E02B405005EB8B4 /* CSVPerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DE14831E02B405005EB8B4 /* CSVPerformance.swift */; };
-		82DEC4E01E08095500A64F4B /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 82DEC4DF1E08095500A64F4B /* TODO.md */; };
 		82DEC4E21E08172C00A64F4B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEC4E11E08172C00A64F4B /* TestHelpers.swift */; };
 /* End PBXBuildFile section */
 
@@ -281,7 +280,6 @@
 				522306521E146AAD0061F1BD /* ParserErrorTests.swift in Sources */,
 				52DE1FFE1DFE10BC0011F078 /* DotStringsParserPerformance.swift in Sources */,
 				82A563C41DF82F2800F1892A /* Quick+Throw.swift in Sources */,
-				82DEC4E01E08095500A64F4B /* TODO.md in Sources */,
 				525079691DF37F0400569C43 /* DotStringsParserTests.swift in Sources */,
 				82DE14801E01B196005EB8B4 /* CSVTests.swift in Sources */,
 				82DE14841E02B405005EB8B4 /* CSVPerformance.swift in Sources */,
