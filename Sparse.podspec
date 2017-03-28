@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Sparse'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Sparse is a simple parsing library written in Swift.'
   s.description      = <<-DESC
                         Sparse is a simple parsing library, written in Swift. It is based
