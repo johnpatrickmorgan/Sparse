@@ -16,9 +16,14 @@ public func string(_ string: String) -> Parser<String> {
     }.named(string)
 }
 
+public func string(of character: Parser<Character>) -> Parser<String> {
+    
+    return many(character).asString()
+}
+
 public func anyString() -> Parser<String> {
     
-    return many(anyCharacter()).asString()
+    return string(of: anyCharacter())
 }
 
 // TODO: When Swift supports conditional conformance

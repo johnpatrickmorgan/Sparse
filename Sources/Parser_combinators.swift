@@ -79,4 +79,18 @@ public extension Parser {
             return try self._runThenRestoreState(stream)
         }
     }
+    
+    public func skip() -> Parser<Void> {
+        
+        return Parser<Void> { stream in
+            
+            let _ = try self._run(stream)
+            return ()
+        }
+    }
+    
+    public func surrounded<T>(by parser: Parser<T>) -> Parser<Output> {
+        
+        return parser.skipThen(self).thenSkip(parser)
+    }
 }

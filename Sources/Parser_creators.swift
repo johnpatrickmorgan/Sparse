@@ -147,3 +147,19 @@ public func oneOf<T>(_ parsers: [Parser<T>]) -> Parser<T> {
         return acc.otherwise(parser)
     }
 }
+
+public func unwrap<T>(_ parser: Parser<T?>, orThrow error: Error) -> Parser<T> {
+    
+    return parser.map {
+        guard let parsed = $0 else { throw error }
+        return parsed
+    }
+}
+
+public func unwrap<T>(_ parser: Parser<T?>, orPure value: T) -> Parser<T> {
+    
+    return parser.map {
+        guard let parsed = $0 else { return value }
+        return parsed
+    }
+}
