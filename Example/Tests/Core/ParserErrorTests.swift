@@ -18,7 +18,7 @@ class ParserErrorSpec: QuickSpec {
         describe("a failing parser") {
             let parser = many(string("abc")).then(end())
             
-            fit("should return the most advanced error in the stream") {
+            it("should return the most advanced error in the stream") {
                 let input = "abcabcabx"
                 let stream = Stream(input)
                 shouldThrow({ try parser._run(stream) })
@@ -31,7 +31,7 @@ class ParserErrorSpec: QuickSpec {
             let greetee = many(characterNot(in: .whitespaces)).asString().named("greetee")
             let parser = greeting.thenSkip(whitespaces()).then(greetee).then(end())
             
-            fit("should be properly recorded in the stream's error") {
+            it("should be properly recorded in the stream's error") {
                 let input = "howdy partner"
                 let stream = Stream(input)
                 shouldThrow({ try parser._run(stream) })
