@@ -89,8 +89,28 @@ public extension Parser {
         }
     }
     
-    public func surrounded<T>(by parser: Parser<T>) -> Parser<Output> {
+    public func surrounded<T>(by parser: Parser<T>) -> Parser<(T, Output, T)> {
+        
+        return parser.then(self).then(parser).map(flatten)
+    }
+    
+    public func surrounded<T>(bySkipped parser: Parser<T>) -> Parser<Output> {
         
         return parser.skipThen(self).thenSkip(parser)
+    }
+    
+    public func skipping<T, U>(prefix: Parser<T>, suffix: Parser<U>) -> Parser<Output> {
+        
+        return prefix.skipThen(self).thenSkip(suffix)
+    }
+    
+    public func skipping<T>(prefix: Parser<T>) -> Parser<Output> {
+        
+        return prefix.skipThen(self)
+    }
+    
+    public func skipping<T>(suffix: Parser<T>) -> Parser<Output> {
+        
+        return self.thenSkip(suffix)
     }
 }

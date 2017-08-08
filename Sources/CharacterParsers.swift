@@ -58,6 +58,11 @@ public func characterNot(in set: CharacterSet) -> Parser<Character> {
     return character(condition: { !set.contains($0.unicodeScalar()) })
 }
 
+public func characterNot(in string: String) -> Parser<Character> {
+    
+    return character(condition: { !string.characters.contains($0) })
+}
+
 public func characterNot(_ char: Character) -> Parser<Character> {
     
     return character(condition: { $0 != char }).named("not \(String(char))")
