@@ -1,7 +1,7 @@
 PODS:
   - Nimble (5.1.1)
   - Quick (1.0.0)
-  - Sparse (0.1.0)
+  - Sparse (0.2.0)
 
 DEPENDENCIES:
   - Nimble
@@ -15,8 +15,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
   Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
-  Sparse: 60bcca8b601295503748cdabd830ef56c204517e
+  Sparse: c6ea84834e91fdaa13699c3ed6b0c61132d25b97
 
 PODFILE CHECKSUM: 8eaf99eb6ab050270a929f1350c05fd1a607837a
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1
