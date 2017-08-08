@@ -76,7 +76,7 @@ public func many<T,E>(_ parser: Parser<T>, until end: Parser<E>) -> Parser<[T]> 
     return many(parser.butNot(end))
 }
 
-public func many<T,E>(_ parser: Parser<T>, untilIgnoring end: Parser<E>) -> Parser<[T]> {
+public func many<T,E>(_ parser: Parser<T>, untilSkipping end: Parser<E>) -> Parser<[T]> {
     
     return many(parser.butNot(end)).thenSkip(end)
 }
