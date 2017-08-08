@@ -26,6 +26,7 @@
 		41E98C38238808717C5AD772 /* Pods-Sparse_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sparse_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sparse_Tests/Pods-Sparse_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		522306511E146AAD0061F1BD /* ParserErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserErrorTests.swift; sourceTree = "<group>"; };
 		525079681DF37F0400569C43 /* DotStringsParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotStringsParserTests.swift; sourceTree = "<group>"; };
+		5262DFB91F3A5B5F00257DDB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		52DE1FFD1DFE10BC0011F078 /* DotStringsParserPerformance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotStringsParserPerformance.swift; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Sparse_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sparse_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,6 +128,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
+				5262DFB91F3A5B5F00257DDB /* Package.swift */,
 				17B15CE61F448BF8374A75BD /* Sparse.podspec */,
 				91CD3ADA4BDD2F6564A62F4B /* README.md */,
 				82DEC4DF1E08095500A64F4B /* TODO.md */,
