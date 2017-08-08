@@ -20,8 +20,8 @@ extension PositionedInput {
         
         let parsed = input[input.startIndex..<index]
         
-        let inputLines = String(input).components(separatedBy: .newlines)
-        let parsedLines = String(parsed).components(separatedBy: .newlines)
+        let inputLines = String(input).components(separatedBy: "\n")
+        let parsedLines = String(parsed).components(separatedBy: "\n")
         
         let line = parsedLines.count - 1
         let column = parsedLines.last?.characters.count ?? 0

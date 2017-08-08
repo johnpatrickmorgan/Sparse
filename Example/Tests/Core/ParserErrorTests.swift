@@ -42,5 +42,22 @@ class ParserErrorSpec: QuickSpec {
                 expect(stream.error!.description).to(equal(errorMessage))
             }
         }
+        
+        describe("an error in a multiline stream") {
+            let greeting = string("hello").otherwise(string("hi"))
+            let greetings = many(greeting.thenSkip(whitespacesOrNewlines()))
+            let parser = greetings.thenSkip(end())
+            
+            it("should give the correct line number") {
+                let input = "hi\r\nhello\nhi\r\nhello\r\nwrong"
+                let stream = Stream(input)
+                guard let error = shouldThrow({ try parser._run(stream) }) as? UnexpectedInputError else {
+                    return
+                }
+                let expectedPrefix = "UNEXPECTED INPUT:\nLine 5, Column 1"
+                let actualPrefix = String(error.description.characters.prefix(upTo: expectedPrefix.endIndex))
+                    expect(actualPrefix).to(equal(expectedPrefix))
+            }
+        }
     }
 }
