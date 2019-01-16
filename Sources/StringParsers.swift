@@ -24,20 +24,6 @@ public func string(_ string: String) -> Parser<String> {
     }.named(string)
 }
 
-//public func string(_ string: String) -> Parser<Substring> {
-//
-//    // TODO: Improve using Substring
-//    return string.reduce(pure(String())) { (parser, char) -> Parser<String> in
-//        return parser.then(character(char)).map { $0.0.appending(String($0.1)) }
-//        }.map { $0[...] }.named(string)
-//}
-
-//public func string(_ string: String) -> Parser<String> {
-//    let charParsers = string.map { character($0) }
-//    let parser = charParsers.reduce(pure(()), { parser, nextParser in parser.thenSkip(nextParser) })
-//    return parser.map { _ in return string }.named(string)
-//}
-
 public func string(of character: Parser<Character>) -> Parser<String> {
     
     return many(character).asString()

@@ -17,7 +17,6 @@ class ParserCombinatorsSpec: QuickSpec {
         
         let input = "VR"
         let stream = Stream(input)
-        let x = String(stream.remainder)
         
         describe("the 'then' function") {
             
@@ -160,14 +159,10 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should correctly parse with the first parser") {
                 let input = "VR"
                 let stream = Stream(input)
-                let x = String(stream.remainder)
                 if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("V"))
-                    print(output)
-                    print(stream.index)
-                    print(stream.characters.indices.contains(stream.index))
-                    let r = String(stream.remainder)
-                    print(r)
+                    let remainder = String(stream.remainder)
+                    expect(remainder).to(equal("R"))
                 }
             }
             it("should correctly skip the second parser") {

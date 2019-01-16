@@ -12,7 +12,7 @@ extension Parser where Output: Collection, Output.Iterator.Element == Character 
     
     public func asString() -> Parser<String> {
         
-        return self.map { return String(Array($0)) }
+        return self.map { return String($0) }
     }
 }
 
