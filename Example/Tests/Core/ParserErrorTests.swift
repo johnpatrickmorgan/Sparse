@@ -62,5 +62,29 @@ class ParserErrorSpec: QuickSpec {
                 expect(error.description).to(equal(expectedErrorDescription))
             }
         }
+        
+        describe("a multiline input") {
+            
+            let digit = character(in: .decimalDigits).named("digit")
+            let number = string(of: digit)
+            let parser = many(number, separator: newline()).thenSkip(end())
+            
+            it("should give the correct line numbers for errors") {
+                let input = "1\n2\n3\r\n4\nX"
+                let stream = Stream(input)
+                guard let error = shouldThrow({ try parser.parse(stream) }) as? ParserError else {
+                    return
+                }
+                let expectedErrorDescription = """
+                    Line 5, Column 1
+                    X
+                    ^
+                    Expected: digit
+                    Expected: newline
+                    Expected: EOF
+                    """
+                expect(error.description).to(equal(expectedErrorDescription))
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ public struct ParserError: Error, PositionedInput, CustomStringConvertible {
     public var description: String {
         return [
             [positionDescription],
-            errors.map { $0.description }
+            errors.map { $0.description }.removingDuplicates()
         ].flatMap { $0 }.joined(separator: "\n")
     }
 }
@@ -39,5 +39,19 @@ extension ParserError {
             index: input.startIndex,
             errors: []
         )
+    }
+}
+
+private extension Collection where Element: Hashable {
+    
+    func removingDuplicates() -> [Element] {
+        var seen: Set<Element> = []
+        var uniques: [Element] = []
+        for element in self {
+            guard !seen.contains(element) else { continue }
+            seen.insert(element)
+            uniques.append(element)
+        }
+        return uniques
     }
 }
