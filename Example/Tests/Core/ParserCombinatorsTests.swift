@@ -15,6 +15,10 @@ class ParserCombinatorsSpec: QuickSpec {
     
     override func spec() {
         
+        let input = "VR"
+        let stream = Stream(input)
+        let x = String(stream.remainder)
+        
         describe("the 'then' function") {
             
             let parser = character("X").then(character("Y"))
@@ -22,7 +26,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should parse good input correctly") {
                 let input = "XY"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output.0).to(equal("X"))
                     expect(output.1).to(equal("Y"))
                     expect(stream.isAtEnd).to(equal(true))
@@ -32,7 +36,7 @@ class ParserCombinatorsSpec: QuickSpec {
                 let badInputs = ["Xy", "X", "YY", "Xray"]
                 for input in badInputs {
                     let stream = Stream(input)
-                    _ = shouldThrow({ _ = try parser._run(stream) })
+                    _ = shouldThrow({ _ = try parser.parse(stream) })
                 }
             }
         }
@@ -43,7 +47,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should parse good input correctly") {
                 let input = "XY"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("Y"))
                     expect(stream.isAtEnd).to(equal(true))
                 }
@@ -52,7 +56,7 @@ class ParserCombinatorsSpec: QuickSpec {
                 let badInputs = ["Xy", "X", "YY", "Xray"]
                 for input in badInputs {
                     let stream = Stream(input)
-                    _ = shouldThrow({ _ = try parser._run(stream) })
+                    _ = shouldThrow({ _ = try parser.parse(stream) })
                 }
             }
         }
@@ -63,7 +67,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should parse good input correctly") {
                 let input = "XY"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("X"))
                     expect(stream.isAtEnd).to(equal(true))
                 }
@@ -72,7 +76,7 @@ class ParserCombinatorsSpec: QuickSpec {
                 let badInputs = ["Xy", "X", "YY", "Xray"]
                 for input in badInputs {
                     let stream = Stream(input)
-                    _ = shouldThrow({ _ = try parser._run(stream) })
+                    _ = shouldThrow({ _ = try parser.parse(stream) })
                 }
             }
         }
@@ -83,7 +87,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should parse valid input") {
                 let input = "hello"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("h"))
                     expect(String(stream.remainder)).to(equal("ello"))
                 }
@@ -91,7 +95,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should fail on invalid input") {
                 let input = "XX"
                 let stream = Stream(input)
-                _ = shouldThrow({ try parser._run(stream) })
+                _ = shouldThrow({ try parser.parse(stream) })
             }
         }
         describe("the 'while' function") {
@@ -101,7 +105,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should stop parsing due to terminating parser") {
                 let input = "helloVworld"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal(["h","e","l","l","o"]))
                     expect(String(stream.remainder)).to(equal("Vworld"))
                 }
@@ -109,7 +113,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should succeed if the terminator is not found") {
                 let input = "hello"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal(["h","e","l","l","o"]))
                     expect(stream.isAtEnd).to(equal(true))
                 }
@@ -117,7 +121,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should stop parsing due to the original parser") {
                 let input = "hello world"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal(["h","e","l","l","o"]))
                     expect(String(stream.remainder)).to(equal(" world"))
                 }
@@ -130,7 +134,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should correctly parse with the first parser") {
                 let input = "VR"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("V"))
                     expect(String(stream.remainder)).to(equal("R"))
                 }
@@ -138,7 +142,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should correctly parse with the second parser") {
                 let input = "XR"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("X"))
                     expect(String(stream.remainder)).to(equal("R"))
                 }
@@ -146,7 +150,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should fail if both parsers fail") {
                 let input = "JR"
                 let stream = Stream(input)
-                _ = shouldThrow({ _ = try parser._run(stream) })
+                _ = shouldThrow({ _ = try parser.parse(stream) })
             }
         }
         describe("the 'otherwiseSkip' function") {
@@ -156,15 +160,20 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should correctly parse with the first parser") {
                 let input = "VR"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                let x = String(stream.remainder)
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("V"))
-                    expect(String(stream.remainder)).to(equal("R"))
+                    print(output)
+                    print(stream.index)
+                    print(stream.characters.indices.contains(stream.index))
+                    let r = String(stream.remainder)
+                    print(r)
                 }
             }
             it("should correctly skip the second parser") {
                 let input = "XR"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(beNil())
                     expect(String(stream.remainder)).to(equal("R"))
                 }
@@ -172,7 +181,7 @@ class ParserCombinatorsSpec: QuickSpec {
             it("should fail if both parsers fail") {
                 let input = "JR"
                 let stream = Stream(input)
-                _ = shouldThrow({ _ = try parser._run(stream) })
+                _ = shouldThrow({ _ = try parser.parse(stream) })
             }
         }
     }

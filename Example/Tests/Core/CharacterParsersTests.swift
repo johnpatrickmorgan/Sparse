@@ -20,12 +20,12 @@ class CharacterParsersSpec: QuickSpec {
             let parser = character(target)
             
             it("should accept the right character") {
-                if let output = shouldNotThrow({ try parser._run(Stream(String(target))) }) {
+                if let output = shouldNotThrow({ try parser.parse(Stream(String(target))) }) {
                     expect(output).to(equal(target))
                 }
             }
             it("should reject wrong characters") {
-                _ = shouldThrow({ _ = try parser._run(Stream("x")) })
+                _ = shouldThrow({ _ = try parser.parse(Stream("x")) })
             }
         }
     }

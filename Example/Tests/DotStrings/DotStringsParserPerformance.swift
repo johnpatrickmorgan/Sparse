@@ -17,7 +17,7 @@ class DotStringsParserPerformance: XCTestCase {
         let input = stringForFile("DotStringsTest", type: "txt")!
         let stream = Stream(input)
         self.measure {
-            let _ = try! parser._run(stream)
+            let _ = try! parser.parse(stream)
         }
     }
     

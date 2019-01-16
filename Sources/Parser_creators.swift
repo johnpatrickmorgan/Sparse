@@ -16,7 +16,7 @@ public func pure<T>(_ result: T) -> Parser<T> {
 public func pureError<T>() -> Parser<T> {
     
     return Parser<T> { stream in
-        try stream.throwUnexpectedInputError()
+        throw UnexpectedInputError()
     }
 }
 
@@ -24,7 +24,7 @@ public func end() -> Parser<Void> {
     
     return Parser<Void> { stream in
         guard stream.peekNext() == nil else {
-            try stream.throwUnexpectedInputError()
+            throw UnexpectedInputError()
         }
         return ()
     }.named("EOF")
@@ -40,7 +40,7 @@ public func many<T>(_ parser: Parser<T>) -> Parser<[T]> {
             
             let initialState = stream.state
             guard let element = try? parser._runOrRestoreState(stream) else { return result }
-            guard stream.state != initialState else { throw InfiniteLoopError(stream: stream) }
+            guard stream.state != initialState else { throw InfiniteLoopError() }
             result.append(element)
         }
     }
@@ -115,7 +115,7 @@ public func atMost<T>(_ n: Int, _ parser: Parser<T>) -> Parser<[T]> {
 
             let initialState = stream.state
             guard let element = try? parser._runOrRestoreState(stream) else { return result }
-            guard stream.state != initialState else { throw InfiniteLoopError(stream: stream) }
+            guard stream.state != initialState else { throw InfiniteLoopError() }
             result.append(element)
         }
         return result

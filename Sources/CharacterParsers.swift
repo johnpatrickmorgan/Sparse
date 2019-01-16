@@ -25,7 +25,7 @@ public func character(condition: @escaping (Character) -> Bool) -> Parser<Charac
         
         guard let char = stream.peekNext(), condition(char) else {
             
-            try stream.throwUnexpectedInputError()
+            throw UnexpectedInputError()
         }
         stream.consumeNext()
         

@@ -66,7 +66,7 @@ public extension Parser {
         
         return Parser<Output> { stream in
             guard (try? other._runThenRestoreState(stream)) == nil else {
-                try stream.throwUnexpectedInputError()
+                throw UnexpectedInputError()
             }
             return try self._run(stream)
             } //.named([name, other.name.map { "not \($0)" }].flatMap{ $0 }.joined(separator: " but "))

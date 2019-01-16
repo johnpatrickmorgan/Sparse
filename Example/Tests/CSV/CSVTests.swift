@@ -22,21 +22,21 @@ class CSVSpec: QuickSpec {
             it("should parse an unquoted cell as expected") {
                 let input = "a simple cell"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("a simple cell"))
                 }
             }
             it("should parse a quoted cell as expected") {
                 let input = "\"a simple cell\""
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("a simple cell"))
                 }
             }
             it("should parse a quoted cell with escapes as expected") {
                 let input = "\"a \"\"simple\"\" cell\""
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal("a \"simple\" cell"))
                 }
             }
@@ -48,21 +48,21 @@ class CSVSpec: QuickSpec {
             it("should parse unquoted cells as expected") {
                 let input = "one cell,another"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal(["one cell","another"]))
                 }
             }
             it("should parse quoted cells as expected") {
                 let input = "\"one cell\",\"another\""
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal(["one cell","another"]))
                 }
             }
             it("should quoted cells with escapes as expected") {
                 let input = "\"one \"\"cell\"\"\",\"\"\"and\"\" another\""
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output).to(equal(["one \"cell\"","\"and\" another"]))
                 }
             }
@@ -75,7 +75,7 @@ class CSVSpec: QuickSpec {
             it("should parse the test file as expected") {
                 let input = stringForFile("CSVTest", type: "csv")!
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     for r in 1...8 {
                         for c in 1...8 {
                             expect(output[r-1][c-1]).to(equal("r\(r)c\(c)"))

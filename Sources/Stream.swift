@@ -26,17 +26,18 @@ public class Stream {
     public var index: String.Index
     public var context: () -> ParsingContext = { return ParsingContext() }
     public var error: UnexpectedInputError?
+    public var _error: PositionedError
     
     public init(_ characters: String, index: String.Index) {
         
         self.characters = characters
         self.index = index
+        self._error = PositionedError(input: characters)
     }
     
-    public init(_ characters: String) {
+    public convenience init(_ characters: String) {
         
-        self.characters = characters
-        self.index = characters.startIndex
+        self.init(characters, index: characters.startIndex)
     }
     
     @discardableResult public func consumeNext() -> Character? {
@@ -66,7 +67,6 @@ public class Stream {
     }
     
     var remainder: Substring {
-        
         return characters.suffix(from: index)
     }
     
@@ -74,11 +74,10 @@ public class Stream {
         return index >= characters.endIndex
     }
     
-    func throwUnexpectedInputError() throws -> Never {
-        
-        let unexpectedInputError = self.error?.incorporating(context, at: index) ?? UnexpectedInputError(stream: self)
-        self.error = unexpectedInputError
-        throw unexpectedInputError
+    func incorporate(error: Error) {
+        if error is IgnoreError { return }
+        let contextualizedError = ContextualizedError(context: context, error: error)
+        _error.incorporate(error: contextualizedError, at: self.index)
     }
 }
 

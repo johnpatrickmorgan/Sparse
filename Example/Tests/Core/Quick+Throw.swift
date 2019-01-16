@@ -10,7 +10,7 @@ import Foundation
 import Quick
 import Nimble
 
-@discardableResult func shouldNotThrow<O>(file: FileString = #file, line: UInt = #line, _ closure: (Void) throws -> O) -> O? {
+@discardableResult func shouldNotThrow<O>(file: FileString = #file, line: UInt = #line, _ closure: () throws -> O) -> O? {
     
     do {
         return try closure()
@@ -20,7 +20,7 @@ import Nimble
     }
 }
 
-@discardableResult func shouldThrow<O>(file: FileString = #file, line: UInt = #line, _ closure: (Void) throws -> O) -> Error? {
+@discardableResult func shouldThrow<O>(file: FileString = #file, line: UInt = #line, _ closure: () throws -> O) -> Error? {
     
     do {
         let output = try closure()

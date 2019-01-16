@@ -22,7 +22,7 @@ class DotStringsSpec: QuickSpec {
                 let input = stringForFile("DotStringsTest", type: "txt")!
                 let stream = Stream(input)
                 let data = dataForFile("DotStringsTest", type: "txt")!
-                if let output = shouldNotThrow({ try parser._run(stream) }),
+                if let output = shouldNotThrow({ try parser.parse(stream) }),
                     let plist = shouldNotThrow({ try PropertyListSerialization.propertyList(from: data, format: nil)}) as? [String: String] {
                     var dict = [String : String]()
                     for entry in output {
@@ -39,7 +39,7 @@ class DotStringsSpec: QuickSpec {
                 
                 let input = "\"K: \\\"commentless key\"=\"V: commentless translation\";"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output.0).to(equal("K: \"commentless key"))
                     expect(output.1).to(equal("V: commentless translation"))
                 }
@@ -52,7 +52,7 @@ class DotStringsSpec: QuickSpec {
                 
                 let input = "\"K: commentless key\" = \"V: commentless translation\";"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(output.key).to(equal("K: commentless key"))
                     expect(output.translation).to(equal("V: commentless translation"))
                 }
@@ -64,7 +64,7 @@ class DotStringsSpec: QuickSpec {
             it("should correctly parse an uncommented key-value pair") {
                 let input = "\"K: commentless key\" = \"V: commentless translation\";"
                 let stream = Stream(input)
-                if let output = shouldNotThrow({ try parser._run(stream) }) {
+                if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     expect(stream.isAtEnd).to(equal(true))
                     expect(output).toNot(beNil())
                     expect(output.count).to(equal(1))

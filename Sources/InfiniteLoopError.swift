@@ -8,22 +8,13 @@
 
 import Foundation
 
-public struct InfiniteLoopError: PositionedInput, Error, CustomStringConvertible {
+public struct InfiniteLoopError: ParsingError {
     
-    public let input: String
-    public let context: () -> ParsingContext
-    public let index: String.Index
-    
-    public var contexts: [ParsingContext] { return [context()] }
-    
-    init(stream: Stream) {
-        
-        self.context = stream.context
-        self.index = stream.index
-        self.input = stream.characters
-    }
-    
-    public var description: String {
-        return "INFINITE LOOP WHILE PARSING: \(context().parserNames.last ?? "")\n\(self.positionDescription)"
+    func description(in context: () -> ParsingContext) -> String {
+        let contextDescription = context().description
+        guard !contextDescription.isEmpty else {
+            return "Parser stuck in infinite loop"
+        }
+        return "Parser stuck in infinite loop parsing: \(context().description)"
     }
 }

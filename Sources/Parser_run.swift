@@ -10,42 +10,47 @@ import Foundation
 
 public extension Parser {
     
-//    public func run(_ input: String) throws -> Output {
-//
-//        return try run(Stream(input))
-//    }
-    
-    public func _run(_ input: Stream) throws -> Output {
-        
-        guard let name = name else {
-            return try parse(input)
-        }
-        let initialContext = input.context
-        input.context = { return initialContext().appending(name: name) }
-        defer { input.context = initialContext }
-        return try parse(input)
-    }
-    
-    public func _runOrRestoreState(_ input: Stream) throws -> Output {
-        
-        let state = input.state
-        let context = input.context
+    public func parse(_ input: Stream) throws -> Output {
         do {
             return try _run(input)
         } catch {
-            input.state = state
-            input.context = context
+            if input._error.errors.count > 0 {
+                throw input._error
+            }
             throw error
         }
     }
     
-    public func _runThenRestoreState(_ input: Stream) throws -> Output {
+    func _run(_ input: Stream, restoreStateIfSuccess: Bool = false, restoreStateIfFailed: Bool = false) throws -> Output {
+        let initialContext = input.context
+        defer { input.context = initialContext }
+        do {
+            if let name = name {
+                input.context = { return initialContext().appending(name: name) }
+            }
+            return try __parse(input)
+        } catch {
+            input.incorporate(error: error)
+            throw ignoreError
+        }
+    }
+    
+    func _runOrRestoreState(_ input: Stream) throws -> Output {
         
         let state = input.state
-        let context = input.context
+        do {
+            return try _run(input)
+        } catch {
+            input.state = state
+            throw error
+        }
+    }
+    
+    func _runThenRestoreState(_ input: Stream) throws -> Output {
+        
+        let state = input.state
         let output = try _runOrRestoreState(input)
         input.state = state
-        input.context = context
         return output
     }
 }

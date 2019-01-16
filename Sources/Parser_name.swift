@@ -12,6 +12,6 @@ public extension Parser {
     
     public func named(_ name: String?) -> Parser<Output> {
         
-        return Parser<Output>(name, parse: self.parse)
+        return Parser<Output>(name, parse: self.__parse)
     }
 }
