@@ -10,7 +10,7 @@ import Foundation
 
 public struct InfiniteLoopError: PositionedInput, Error, CustomStringConvertible {
     
-    public let input: String.CharacterView
+    public let input: String
     public let context: () -> ParsingContext
     public let index: String.Index
     

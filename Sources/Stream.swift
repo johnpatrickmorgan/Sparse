@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension String.CharacterView {
+extension String {
     
     subscript(safe index: String.Index) -> Character? {
         
@@ -22,26 +22,21 @@ extension String.CharacterView {
 // TODO: make Stream generic and use a StreamType protocol so that other implementations can be used
 public class Stream {
     
-    public let characters: String.CharacterView
+    public let characters: String
     public var index: String.Index
     public var context: () -> ParsingContext = { return ParsingContext() }
     public var error: UnexpectedInputError?
     
-    public init(_ characters: String.CharacterView, index: String.Index) {
+    public init(_ characters: String, index: String.Index) {
         
         self.characters = characters
         self.index = index
     }
     
-    public init(_ characters: String.CharacterView) {
+    public init(_ characters: String) {
         
         self.characters = characters
         self.index = characters.startIndex
-    }
-    
-    public convenience init(_ string: String) {
-        
-        self.init(string.characters)
     }
     
     @discardableResult public func consumeNext() -> Character? {
@@ -65,18 +60,17 @@ public class Stream {
         return characters[safe: previousIndex]
     }
     
-    var parsed: String.CharacterView {
+    var parsed: Substring {
         
         return characters.prefix(upTo: index)
     }
     
-    var remainder: String.CharacterView {
+    var remainder: Substring {
         
         return characters.suffix(from: index)
     }
     
     var isAtEnd: Bool {
-        
         return index >= characters.endIndex
     }
     

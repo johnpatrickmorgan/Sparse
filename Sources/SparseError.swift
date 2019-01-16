@@ -10,7 +10,7 @@ import Foundation
 
 public protocol PositionedInput {
     
-    var input: String.CharacterView { get }
+    var input: String { get }
     var index: String.Index { get }
 }
 
@@ -24,7 +24,7 @@ extension PositionedInput {
         let parsedLines = String(parsed).components(separatedBy: "\n")
         
         let line = parsedLines.count - 1
-        let column = parsedLines.last?.characters.count ?? 0
+        let column = parsedLines.last?.count ?? 0
         let currentLine = inputLines[line]
         return [
             "Line \(line + 1), Column \(column + 1)",

@@ -10,7 +10,7 @@ import Foundation
 
 public struct UnexpectedInputError: PositionedInput, Error, CustomStringConvertible {
     
-    public let input: String.CharacterView
+    public let input: String
     public let contexts: [() -> ParsingContext]
     public var index: String.Index
     
@@ -21,13 +21,13 @@ public struct UnexpectedInputError: PositionedInput, Error, CustomStringConverti
         self.input = stream.characters
     }
     
-    init(parsing context: @escaping () -> ParsingContext, at index: String.Index, input: String.CharacterView) {
+    init(parsing context: @escaping () -> ParsingContext, at index: String.Index, input: String) {
         self.contexts = [context]
         self.input = input
         self.index = index
     }
     
-    init(parsing contexts: [() -> ParsingContext], plus context: @escaping () -> ParsingContext, at index: String.Index, input: String.CharacterView) {
+    init(parsing contexts: [() -> ParsingContext], plus context: @escaping () -> ParsingContext, at index: String.Index, input: String) {
         var newContexts = contexts
         newContexts.append(context)
         self.contexts = newContexts
@@ -35,7 +35,7 @@ public struct UnexpectedInputError: PositionedInput, Error, CustomStringConverti
         self.index = index
     }
     
-    init?(_ contexts: [() -> ParsingContext], at index: String.Index, input: String.CharacterView) {
+    init?(_ contexts: [() -> ParsingContext], at index: String.Index, input: String) {
         
         guard !contexts.isEmpty else { return nil }
         

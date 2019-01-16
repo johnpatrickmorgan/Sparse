@@ -8,12 +8,12 @@
 
 import Foundation
 
-public func string(_ string: String) -> Parser<String> {
+public func string(_ string: String) -> Parser<Substring> {
     
-    return string.characters.reduce(pure(String())) { (parser, char) -> Parser<String> in
-    
+    // TODO: Improve using Substring
+    return string.reduce(pure(String())) { (parser, char) -> Parser<String> in
         return parser.then(character(char)).map { $0.0.appending(String($0.1)) }
-    }.named(string)
+        }.map { $0[...] }.named(string)
 }
 
 public func string(of character: Parser<Character>) -> Parser<String> {
@@ -27,7 +27,7 @@ public func anyString() -> Parser<String> {
 }
 
 // TODO: When Swift supports conditional conformance
-//extension Parser: ExpressibleByStringLiteral where Output == String.CharacterView {
+//extension Parser: ExpressibleByStringLiteral where Output == String {
 //    
 //    public init(stringLiteral value: String) {
 //        

@@ -45,7 +45,7 @@ public func character(in set: CharacterSet) -> Parser<Character> {
 
 public func character(in string: String) -> Parser<Character> {
     
-    return character(condition: { string.characters.contains($0) })
+    return character(condition: { string.contains($0) })
 }
 
 public func character(_ char: Character) -> Parser<Character> {
@@ -60,7 +60,7 @@ public func characterNot(in set: CharacterSet) -> Parser<Character> {
 
 public func characterNot(in string: String) -> Parser<Character> {
     
-    return character(condition: { !string.characters.contains($0) })
+    return character(condition: { !string.contains($0) })
 }
 
 public func characterNot(_ char: Character) -> Parser<Character> {
