@@ -8,9 +8,10 @@
 
 import Foundation
 
-public struct InfiniteLoopError: ParsingError {
+/// An error signifying that the parser is stuck in an infinite loop.
+public struct InfiniteLoopError: ContextDescribableError {
     
-    func description(in context: () -> ParsingContext) -> String {
+    public func description(in context: () -> ParsingContext) -> String {
         let contextDescription = context().description
         guard !contextDescription.isEmpty else {
             return "Parser stuck in infinite loop"

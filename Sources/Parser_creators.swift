@@ -13,10 +13,10 @@ public func pure<T>(_ result: T) -> Parser<T> {
     return Parser<T> { stream in return result }
 }
 
-public func pureError<T>() -> Parser<T> {
+public func pureError<T>(_ error: Error = UnexpectedInputError()) -> Parser<T> {
     
     return Parser<T> { stream in
-        throw UnexpectedInputError()
+        throw error
     }
 }
 

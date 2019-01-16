@@ -14,8 +14,8 @@ public extension Parser {
         do {
             return try _run(input)
         } catch {
-            if input._error.errors.count > 0 {
-                throw input._error
+            if input.error.errors.count > 0 {
+                throw input.error
             }
             throw error
         }

@@ -8,21 +8,10 @@
 
 import Foundation
 
-protocol ParsingError: Error {
+/// An error signifying that the parser found unexpected input.
+public struct UnexpectedInputError: ContextDescribableError {
     
-    func description(in context: () -> ParsingContext) -> String
-}
-
-extension ParsingError where Self: CustomStringConvertible {
-    
-    func description(in context: () -> ParsingContext) -> String {
-        return description
-    }
-}
-
-public struct UnexpectedInputError: ParsingError {
-    
-    func description(in context: () -> ParsingContext) -> String {
+    public func description(in context: () -> ParsingContext) -> String {
         return "Expected: \(context())"
     }
 }

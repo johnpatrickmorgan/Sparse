@@ -19,20 +19,19 @@ extension String {
     }
 }
 
-// TODO: make Stream generic and use a StreamType protocol so that other implementations can be used
+/// Represents an input stream for parsing, capturing its changing state as it is consumed.
 public class Stream {
     
     public let characters: String
     public var index: String.Index
     public var context: () -> ParsingContext = { return ParsingContext() }
-    public var error: UnexpectedInputError?
-    public var _error: PositionedError
+    public var error: ParserError
     
     public init(_ characters: String, index: String.Index) {
         
         self.characters = characters
         self.index = index
-        self._error = PositionedError(input: characters)
+        self.error = ParserError(input: characters)
     }
     
     public convenience init(_ characters: String) {
@@ -77,7 +76,7 @@ public class Stream {
     func incorporate(error: Error) {
         if error is IgnoreError { return }
         let contextualizedError = ContextualizedError(context: context, error: error)
-        _error.incorporate(error: contextualizedError, at: self.index)
+        self.error.incorporate(error: contextualizedError, at: self.index)
     }
 }
 

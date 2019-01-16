@@ -34,7 +34,7 @@ public func anyString() -> Parser<String> {
     return string(of: anyCharacter())
 }
 
-public extension Parser: ExpressibleByStringLiteral, ExpressibleByUnicodeScalarLiteral, ExpressibleByExtendedGraphemeClusterLiteral where Output == String {
+extension Parser: ExpressibleByStringLiteral, ExpressibleByUnicodeScalarLiteral, ExpressibleByExtendedGraphemeClusterLiteral where Output == String {
     
     public typealias StringLiteralType = String
     

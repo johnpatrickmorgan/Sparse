@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Replaces an error that has already been captured in the stream, to avoid
+/// capturing the same error at every level of the parser tree.
 class IgnoreError: Error { }
 
 let ignoreError = IgnoreError()

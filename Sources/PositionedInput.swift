@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Conforming types capture a string and a position within that string.
 public protocol PositionedInput {
     
     var input: String { get }

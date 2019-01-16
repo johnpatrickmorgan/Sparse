@@ -69,7 +69,7 @@ public extension Parser {
                 throw UnexpectedInputError()
             }
             return try self._run(stream)
-            } //.named([name, other.name.map { "not \($0)" }].flatMap{ $0 }.joined(separator: " but "))
+        }
     }
     
     public func withoutConsuming() -> Parser<Output> {

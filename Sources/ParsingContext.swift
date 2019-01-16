@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Captures a hierarchy of named parsers.
 public struct ParsingContext: CustomStringConvertible {
     
     public let parserNames: [String]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct PositionedError: Error, PositionedInput, CustomStringConvertible {
+/// Capture a number of contextualized errors thrown at a particular index in an input stream.
+public struct ParserError: Error, PositionedInput, CustomStringConvertible {
     
     public let input: String
     public var index: String.Index
@@ -30,7 +31,7 @@ public struct PositionedError: Error, PositionedInput, CustomStringConvertible {
     }
 }
 
-extension PositionedError {
+extension ParserError {
     
     init(input: String) {
         self.init(
