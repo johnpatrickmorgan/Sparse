@@ -60,16 +60,16 @@ public class Stream {
         return characters[safe: previousIndex]
     }
     
-    var parsed: Substring {
+    public var parsed: Substring {
         
         return characters.prefix(upTo: index)
     }
     
-    var remainder: Substring {
+    public var remainder: Substring {
         return characters.suffix(from: index)
     }
     
-    var isAtEnd: Bool {
+    public var isAtEnd: Bool {
         return index >= characters.endIndex
     }
     

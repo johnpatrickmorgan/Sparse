@@ -13,7 +13,7 @@ public protocol ContextDescribableError: Error {
     func description(in context: () -> ParsingContext) -> String
 }
 
-extension ContextDescribableError where Self: CustomStringConvertible {
+public extension ContextDescribableError where Self: CustomStringConvertible {
     
     func description(in context: () -> ParsingContext) -> String {
         return description
