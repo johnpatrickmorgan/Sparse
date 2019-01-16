@@ -65,7 +65,7 @@ public enum DotStringsParser {
     public static func parseStrings(input: String) throws -> [DotStringsEntry] {
         
         let stream = Stream(input)
-        let parsed = try stringsParser._run(stream)
+        let parsed = try stringsParser.parse(stream)
         return parsed
     }
     

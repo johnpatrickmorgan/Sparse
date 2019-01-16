@@ -21,36 +21,33 @@ public extension Parser {
         }
     }
     
-    func _run(_ input: Stream, restoreStateIfSuccess: Bool = false, restoreStateIfFailed: Bool = false) throws -> Output {
+    func _run(_ input: Stream, restoreStateOnSuccess: Bool = false, restoreStateOnFailure: Bool = false) throws -> Output {
         let initialContext = input.context
+        let initialState = input.state
         defer { input.context = initialContext }
         do {
             if let name = name {
                 input.context = { return initialContext().appending(name: name) }
             }
-            return try __parse(input)
+            let output = try __parse(input)
+            if restoreStateOnSuccess {
+                input.state = initialState
+            }
+            return output
         } catch {
             input.incorporate(error: error)
+            if restoreStateOnFailure {
+                input.state = initialState
+            }
             throw ignoreError
         }
     }
     
     func _runOrRestoreState(_ input: Stream) throws -> Output {
-        
-        let state = input.state
-        do {
-            return try _run(input)
-        } catch {
-            input.state = state
-            throw error
-        }
+        return try _run(input, restoreStateOnSuccess: false, restoreStateOnFailure: true)
     }
     
     func _runThenRestoreState(_ input: Stream) throws -> Output {
-        
-        let state = input.state
-        let output = try _runOrRestoreState(input)
-        input.state = state
-        return output
+        return try _run(input, restoreStateOnSuccess: true, restoreStateOnFailure: false)
     }
 }

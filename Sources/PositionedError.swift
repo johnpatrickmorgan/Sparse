@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PositionedError: Error, PositionedInput {
+public struct PositionedError: Error, PositionedInput, CustomStringConvertible {
     
     public let input: String
     public var index: String.Index
@@ -22,7 +22,7 @@ public struct PositionedError: Error, PositionedInput {
         }
     }
     
-    var description: String {
+    public var description: String {
         return [
             [positionDescription],
             errors.map { $0.description }

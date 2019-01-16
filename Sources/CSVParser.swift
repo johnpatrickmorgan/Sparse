@@ -32,7 +32,7 @@ public enum CSVParser {
     public static func parseCSV(input: String) throws -> [[String]] {
         
         let stream = Stream(input)
-        let parsed = try csv._run(stream)
+        let parsed = try csv.parse(stream)
         return parsed
     }
 }
