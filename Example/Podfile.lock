@@ -1,7 +1,7 @@
 PODS:
   - Nimble (7.3.1)
   - Quick (1.3.2)
-  - Sparse (0.2.0)
+  - Sparse (0.3.0)
 
 DEPENDENCIES:
   - Nimble
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
-  Sparse: 7f31da18c59ddd2381e32acab0d36d053a0741df
+  Sparse: 3b4608396b61b392250ae9c899739bc9efee391e
 
 PODFILE CHECKSUM: 147c13a4295f73cc96ce684f186b4019ac194958
 
