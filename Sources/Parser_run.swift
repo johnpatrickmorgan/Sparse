@@ -48,6 +48,6 @@ public extension Parser {
     }
     
     func _runThenRestoreState(_ input: Stream) throws -> Output {
-        return try _run(input, restoreStateOnSuccess: true, restoreStateOnFailure: false)
+        return try _run(input, restoreStateOnSuccess: true, restoreStateOnFailure: true)
     }
 }
