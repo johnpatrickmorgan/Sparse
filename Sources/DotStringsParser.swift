@@ -57,7 +57,7 @@ public enum DotStringsParser {
     // Entries
     static let entryTuple = comments.then(kvp).thenSkip(wss).then(optional(inlineComment)).thenSkip(wsnls).map(flatten)
     static let entryObject = entryTuple.map(createEntry).named("entry")
-    static let entries = many(entryObject.otherwiseSkip(orphanedComment)).map { $0.flatMap{$0} }
+    static let entries = many(entryObject.otherwiseSkip(orphanedComment)).map { $0.compactMap{$0} }
     
     // Strings Parser
     static let stringsParser = wsnls.skipThen(entries).thenSkip(end())
