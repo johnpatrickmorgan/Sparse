@@ -15,9 +15,6 @@ class ParserCombinatorsSpec: QuickSpec {
     
     override func spec() {
         
-        let input = "VR"
-        let stream = Stream(input)
-        
         describe("the 'then' function") {
             
             let parser = character("X").then(character("Y"))

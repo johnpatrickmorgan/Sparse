@@ -25,7 +25,7 @@ public enum CSVParser {
     static let cellSeparator = whitespaces().then(character(",")).then(whitespaces()).named("cell separator")
     
     static let line = many(cell, separator: cellSeparator)
-    static let ending = optional(newline()).then(end()).named("file terminator")
+    static let ending = optional(newline()).then(end())
     static let lineSeparator = newline().named("line separator")
     static let csv = many(line, separator: lineSeparator).thenSkip(ending)
     
