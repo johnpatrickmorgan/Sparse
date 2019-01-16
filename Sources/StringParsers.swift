@@ -34,25 +34,24 @@ public func anyString() -> Parser<String> {
     return string(of: anyCharacter())
 }
 
-//extension Parser: ExpressibleByStringLiteral where Output == Substring {
-//    
-//    public typealias StringLiteralType = String
-//    
-//    public typealias ExtendedGraphemeClusterLiteralType = String
-//    
-//    public typealias UnicodeScalarLiteralType = String
-//
-//    public init(extendedGraphemeClusterLiteral value: String) {
-//        self.init(stringLiteral: value)
-//    }
-//    
-//    public init(unicodeScalarLiteral value: String) {
-//        self.init(stringLiteral: value)
-//    }
-//    
-//    public init(stringLiteral value: String) {
-//        
-//        self.name = value
-//        self = string(value)
-//    }
-//}
+public extension Parser: ExpressibleByStringLiteral, ExpressibleByUnicodeScalarLiteral, ExpressibleByExtendedGraphemeClusterLiteral where Output == String {
+    
+    public typealias StringLiteralType = String
+    
+    public typealias ExtendedGraphemeClusterLiteralType = String
+
+    public typealias UnicodeScalarLiteralType = String
+
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self.init(stringLiteral: value)
+    }
+
+    public init(unicodeScalarLiteral value: String) {
+        self.init(stringLiteral: value)
+    }
+    
+    public init(stringLiteral value: String) {
+        
+        self = string(value)
+    }
+}
