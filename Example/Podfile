@@ -1,6 +1,8 @@
 use_frameworks!
 
 target 'Sparse_Tests' do
+  
+  platform :ios, '8.0'
     
   pod 'Sparse', :path => '../'
   
