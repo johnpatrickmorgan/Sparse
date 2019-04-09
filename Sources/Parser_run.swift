@@ -10,7 +10,7 @@ import Foundation
 
 public extension Parser {
     
-    public func parse(_ input: Stream) throws -> Output {
+    func parse(_ input: Stream) throws -> Output {
         do {
             return try _run(input)
         } catch {

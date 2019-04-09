@@ -10,7 +10,7 @@ import Foundation
 
 public extension Parser {
     
-    public func map<T>(_ transform: @escaping (Output) throws -> T) -> Parser<T> {
+    func map<T>(_ transform: @escaping (Output) throws -> T) -> Parser<T> {
         
         return Parser<T> { stream in
             
@@ -19,7 +19,7 @@ public extension Parser {
         }
     }
     
-    public func then<T>(_ other: Parser<T>) -> Parser<(Output,T)> {
+    func then<T>(_ other: Parser<T>) -> Parser<(Output,T)> {
         
         return Parser<(Output,T)> { stream in
             
@@ -29,17 +29,17 @@ public extension Parser {
         }
     }
     
-    public func skipThen<T>(_ other: Parser<T>) -> Parser<T> {
+    func skipThen<T>(_ other: Parser<T>) -> Parser<T> {
         
         return self.then(other).map { $0.1 }
     }
     
-    public func thenSkip<T>(_ other: Parser<T>) -> Parser<Output> {
+    func thenSkip<T>(_ other: Parser<T>) -> Parser<Output> {
         
         return self.then(other).map { $0.0 }
     }
     
-    public func otherwise(_ other: Parser<Output>) -> Parser<Output> {
+    func otherwise(_ other: Parser<Output>) -> Parser<Output> {
         
         return Parser<Output> { stream in
 
@@ -48,12 +48,12 @@ public extension Parser {
         }
     }
     
-    public func otherwiseSkip<T>(_ other: Parser<T>) -> Parser<Output?> {
+    func otherwiseSkip<T>(_ other: Parser<T>) -> Parser<Output?> {
         
         return self.map { Optional.some($0) }.otherwise(other.map { _ in return nil })
     }
     
-    public func and<T>(_ other: Parser<T>) -> Parser<Output> {
+    func and<T>(_ other: Parser<T>) -> Parser<Output> {
         
         return Parser<Output> { stream in
             
@@ -62,7 +62,7 @@ public extension Parser {
         }
     }
     
-    public func butNot<T>(_ other: Parser<T>) -> Parser<Output> {
+    func butNot<T>(_ other: Parser<T>) -> Parser<Output> {
         
         return Parser<Output> { stream in
             guard (try? other._runThenRestoreState(stream)) == nil else {
@@ -72,7 +72,7 @@ public extension Parser {
         }
     }
     
-    public func withoutConsuming() -> Parser<Output> {
+    func withoutConsuming() -> Parser<Output> {
         
         return Parser<Output> { stream in
             
@@ -80,7 +80,7 @@ public extension Parser {
         }
     }
     
-    public func skip() -> Parser<Void> {
+    func skip() -> Parser<Void> {
         
         return Parser<Void> { stream in
             
@@ -89,27 +89,27 @@ public extension Parser {
         }
     }
     
-    public func surrounded<T>(by parser: Parser<T>) -> Parser<(T, Output, T)> {
+    func surrounded<T>(by parser: Parser<T>) -> Parser<(T, Output, T)> {
         
         return parser.then(self).then(parser).map(flatten)
     }
     
-    public func surrounded<T>(bySkipped parser: Parser<T>) -> Parser<Output> {
+    func surrounded<T>(bySkipped parser: Parser<T>) -> Parser<Output> {
         
         return parser.skipThen(self).thenSkip(parser)
     }
     
-    public func skipping<T, U>(prefix: Parser<T>, suffix: Parser<U>) -> Parser<Output> {
+    func skipping<T, U>(prefix: Parser<T>, suffix: Parser<U>) -> Parser<Output> {
         
         return prefix.skipThen(self).thenSkip(suffix)
     }
     
-    public func skipping<T>(prefix: Parser<T>) -> Parser<Output> {
+    func skipping<T>(prefix: Parser<T>) -> Parser<Output> {
         
         return prefix.skipThen(self)
     }
     
-    public func skipping<T>(suffix: Parser<T>) -> Parser<Output> {
+    func skipping<T>(suffix: Parser<T>) -> Parser<Output> {
         
         return self.thenSkip(suffix)
     }

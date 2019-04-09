@@ -10,7 +10,7 @@ import Foundation
 
 public extension Parser {
     
-    public func named(_ name: String?) -> Parser<Output> {
+    func named(_ name: String?) -> Parser<Output> {
         
         return Parser<Output>(name, parse: self.__parse)
     }
