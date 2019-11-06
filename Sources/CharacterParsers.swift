@@ -75,7 +75,7 @@ public func characterNot(condition: @escaping (Character) -> Bool) -> Parser<Cha
 
 public func whitespace() -> Parser<Character> {
     
-    return character(in: .whitespaces).named("whitespace")
+    return character(condition: { $0.isWhitespace }).named("whitespace")
 }
 
 public func whitespaces() -> Parser<[Character]> {
@@ -85,7 +85,7 @@ public func whitespaces() -> Parser<[Character]> {
 
 public func whitespaceOrNewline() -> Parser<Character> {
     
-    return character(in: .whitespacesAndNewlines).named("whitespace or newline")
+    return character(condition: { $0.isWhitespace || $0.isNewline }).named("whitespace or newline")
 }
 
 public func whitespacesOrNewlines() -> Parser<[Character]> {
@@ -95,7 +95,7 @@ public func whitespacesOrNewlines() -> Parser<[Character]> {
 
 public func newline() -> Parser<Character> {
     
-    return character(in: .newlines).named("newline")
+    return character(condition: { $0.isNewline }).named("newline")
 }
 
 public func newlines() -> Parser<[Character]> {

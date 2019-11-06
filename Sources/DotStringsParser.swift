@@ -33,7 +33,7 @@ public enum DotStringsParser {
     
     // Comments
     static let ilcStart = atLeast(2, character("/")).thenSkip(wss)
-    static let ilcStop = character(in: .newlines)
+    static let ilcStop = nl
     
     static let mlcStart = string("/*").thenSkip(many(character("*")))
     static let mlcStop = string("*/")
