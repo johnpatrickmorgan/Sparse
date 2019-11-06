@@ -14,7 +14,7 @@ class CSVParserPerformance: XCTestCase {
     func testCSVParserPerformance() {
         
         let parser = CSVParser.csv
-        let input = stringForFile("CSVTest", type: "csv")!
+        let input = csvExample
         let stream = Stream(input)
         self.measure {
             let _ = try! parser.parse(stream)

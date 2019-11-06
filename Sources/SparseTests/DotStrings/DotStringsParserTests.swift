@@ -6,6 +6,7 @@
 //  Copyright © 2016 CocoaPods. All rights reserved.
 //
 
+import Foundation
 import Quick
 import Nimble
 @testable import Sparse
@@ -19,9 +20,9 @@ class DotStringsSpec: QuickSpec {
             let parser = DotStringsParser.stringsParser
             
             it("should produce the same output as plist serialization") {
-                let input = stringForFile("DotStringsTest", type: "txt")!
+                let input = dotStringsExample
                 let stream = Stream(input)
-                let data = dataForFile("DotStringsTest", type: "txt")!
+                let data = input.data(using: .utf8)!
                 if let output = shouldNotThrow({ try parser.parse(stream) }),
                     let plist = shouldNotThrow({ try PropertyListSerialization.propertyList(from: data, format: nil)}) as? [String: String] {
                     var dict = [String : String]()

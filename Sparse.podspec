@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/jpmmusic'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.10'
-  s.source_files = 'Sources/**/*'
+  s.source_files = 'Sources/Sparse/**/*'
 end

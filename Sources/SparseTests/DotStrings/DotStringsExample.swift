@@ -1,3 +1,8 @@
+//
+
+import Foundation
+
+let dotStringsExample = #"""
 /*
 valid.strings
 Sparse
@@ -1541,3 +1546,5 @@ An example of more than one line comment */
 "K: with \"escaped quotes\"" = "V: with \"escaped quotes\"";
 
 "K: with a\new line" = "V:  with a\new line";
+
+"""#

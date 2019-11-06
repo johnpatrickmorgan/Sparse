@@ -14,7 +14,7 @@ class DotStringsParserPerformance: XCTestCase {
     func testDotStringsParserPerformance() {
         
         let parser = DotStringsParser.stringsParser
-        let input = stringForFile("DotStringsTest", type: "txt")!
+        let input = dotStringsExample
         let stream = Stream(input)
         self.measure {
             let _ = try! parser.parse(stream)
@@ -23,7 +23,7 @@ class DotStringsParserPerformance: XCTestCase {
     
     func testPlistPerformanceForComparison() {
         
-        let data = dataForFile("DotStringsTest", type: "txt")!
+        let data = dotStringsExample.data(using: .utf8)!
         self.measure {
              let _ = try! PropertyListSerialization.propertyList(from: data, format: nil)
         }

@@ -22,4 +22,9 @@ DerivedData
 # Bundler
 .bundle
 
-Pods/
+### SwiftPM ###
+Packages
+.build/
+xcuserdata
+DerivedData/
+*.xcodeproj

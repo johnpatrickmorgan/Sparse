@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/cocoapods/v/Sparse.svg?style=flat)](http://cocoapods.org/pods/Sparse)
 [![License](https://img.shields.io/cocoapods/l/Sparse.svg?style=flat)](http://cocoapods.org/pods/Sparse)
-![Swift](https://img.shields.io/badge/Swift-4.2-orange.svg)
+![Swift](https://img.shields.io/badge/Swift-5.1-orange.svg)
 
 Sparse is a simple parsing library, written in Swift. It is based on the parser-combinator approach used by Haskell's [Parsec](https://github.com/aslatter/parsec). Its focus is on natural language parser creation and descriptive error messages.
 
@@ -14,33 +14,43 @@ Here is a CSV parser:
 let quote = character("\"")
 
 let illegalCellCharacters = CharacterSet.newlines.union(CharacterSet(charactersIn: ","))
+let unquotedCellCharacter = characterNot(in: illegalCellCharacters)
+    .named("cell character")
+let unquotedCell = many(unquotedCellCharacter).asString()
+    .map { $0.trimmingCharacters(in: .whitespaces) }
 
-let cellCharacter = characterNot(in: illegalCellCharacters).named("cell character")
 let escapedQuote = quote.skipThen(quote)
-let quotedCellCharacter = characterNot("\"").otherwise(escapedQuote).named("quoted cell character")
+    .named("escaped quote")
+let quotedCellCharacter = characterNot("\"")
+    .named("quoted cell character")
+    .otherwise(escapedQuote)
 
 let quotedCell = many(quotedCellCharacter, boundedBy: quote).asString()
-let unquotedCell = many(cellCharacter).asString().map { $0.trimmingCharacters(in: .whitespaces) }
 
 let cell = quotedCell.otherwise(unquotedCell)
-let cellSeparator = whitespaces().then(character(",")).then(whitespaces())
 
+let cellSeparator = whitespaces().then(character(",")).then(whitespaces())
+    .named("cell separator")
 let line = many(cell, separator: cellSeparator)
+
 let ending = optional(newline()).then(end())
 let csv = many(line, separator: newline()).thenSkip(ending)
+
+public func parseCSV(input: String) throws -> [[String]] {
+    return try csv.parse(input)
+}
 ```
 
 Naming the component parsers allows for more descriptive error messages, e.g.:
 
-    Line 5, Column 11
-    r5c1, "r5"c2" ,r5c3,r5c4 ,r5c5,r5c6,r5c7,r5c8
-    ~~~~~~~~~~^
-    Expected: '"' in quoted cell character
+    Line 8, Column 12
+    r8c1 , "r8"c2" , r8c3 ,r8c4,r8c5,r8c6,r8c7 , r8c8
+    ~~~~~~~~~~~^
+    Expected: '"' in escaped quote
     Expected: whitespace in cell separator
     Expected: ',' in cell separator
-    Expected: line separator
     Expected: newline
-    Expected: EOF
+    Expected: EOF: file
 
 ## Installation
 

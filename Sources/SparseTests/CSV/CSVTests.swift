@@ -7,9 +7,9 @@
 //
 
 import Foundation
+@testable import Sparse
 import Quick
 import Nimble
-@testable import Sparse
 
 class CSVSpec: QuickSpec {
     
@@ -73,7 +73,7 @@ class CSVSpec: QuickSpec {
             let parser = CSVParser.csv
             
             it("should parse the test file as expected") {
-                let input = stringForFile("CSVTest", type: "csv")!
+                let input = csvExample
                 let stream = Stream(input)
                 if let output = shouldNotThrow({ try parser.parse(stream) }) {
                     for r in 1...8 {
