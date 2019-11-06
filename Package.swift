@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
   name: "Sparse",
+  products: [
+    .library(name: "Sparse", targets: ["Sparse"]),
+  ],
   dependencies: [
     // Test dependencies
     .package(url: "https://github.com/Quick/Quick.git", from: "2.2.0"),
